@@ -15,14 +15,6 @@ module.exports = {
   module: {
     loaders: [
       {
-        test: /\.js[x]?$/,
-        exclude: /node_modules/,
-        loader: 'babel-loader',
-        query: {
-          presets: ['env']
-        }
-      },
-      {
         test: /\.css$/,
         exclude: /node_modules/,
         loaders: [
