@@ -17,15 +17,6 @@ module.exports = function () {
 
   // Get our initialized service so that we can register hooks and filters
   const service = app.service('questions')
-  service.on('updated', message => console.log('updated', message)) // DEBUG
-/*  service.on('created', () => {
-    service.find({
-      query: {
-        $limit: 15,
-        $sort: {votes: -1}
-      }
-    }).then(questions => service.emit('news'))
-  }) */
   service.hooks(hooks)
 
   if (service.filter) {
