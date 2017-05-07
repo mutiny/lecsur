@@ -15,6 +15,15 @@ module.exports = {
   module: {
     loaders: [
       {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader',
+        options: {
+          presets: ['stage-0', 'env'],
+          plugins: ['transform-runtime']
+        }
+
+      }, {
         test: /\.css$/,
         exclude: /node_modules/,
         loaders: [
