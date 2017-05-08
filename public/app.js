@@ -82,6 +82,7 @@ var lexform = Vue.component('lexform', {
   methods: {
     ask: function ask(question) {
       _sockets.Socket.ask({ author: 'testauth', text: $('#question').val() });
+      $('#question').val('');
     }
   }
 });
