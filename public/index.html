@@ -28,11 +28,12 @@
       v-bind:key="question.id"
       v-bind:author="question.author"
       v-bind:qtext="question.text"
-      v-on:remove="question.splice(index, 1)"
+      v-bind:votes="question.votes"
+      v-on:remove="questions.splice(index, 1)"
     ></li>
   </ul>
 </div>
-<script src="app.js"> </script>
+<script src="js/app.js"> </script>
 </body>
 
 </html>
