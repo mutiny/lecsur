@@ -15,57 +15,24 @@
 </head>
 
 <body>
-    <div>
-        <!-- Navbar -->
-        <div id="mobile-nav" class="navmenu navmenu-default navmenu-fixed-left">
-            <h2 class="navmenu-brand text-center">Lex.sur</h2>
-            <ul class="nav navmenu-nav">
-                <li class="btn btn-default active"><a href="index.html">Top Questions</a></li>
-                <li class="btn btn-default"><a href="contact.html">Private Message</a></li>
-            </ul>
-
-        </div>
-        <!-- Offscreen menu -->
-        <div class="canvas canvas-slid">
-            <div id="hamburger" class="navbar navbar-default navbar-fixed-top canvas-slid">
-                <button type="button" class="navbar-toggle" data-toggle="offcanvas" data-recalc="false" data-target="#mobile-nav" data-canvas=".canvas">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-            </div>
-        <!-- Main -->
-            <div id="lux" class="site-wrapper">
-                <div class="site-wrapper-inner">
-                    <div class="cover-container">
-                        <div class="masthead clearfix">
-                            <div class="inner">
-                                <nav id="default-nav" class="">
-                                    <ul class="nav masthead-nav btn-group" role="group">
-                                        <li class="btn btn-nav active"><a href="index.html">Questions</a></li>
-                                        <li class="btn btn-nav"><a href="polls.html">Polls</a></li>
-                                        <li class="btn btn-nav"><a href="events.html">Events</a></li>
-                                    </ul>
-                                </nav>
-                            </div>
-                        </div>
-                        <div class="well">
-                            <lex></lex>
-                        </div>
-                        <ol id="questions" class="list-group">
-                            <template v-for="question in questions">
-                                <li> {{ question.author }} - {{ question.text }} </li>
-                            </template>
-                        </ol>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.js" integrity="sha256-Cr6N6zNN4bp0OwTQOZ6Z66M2r+2dpy/EwKMCyZ+SOMg=" crossorigin="anonymous"></script>
-
-    <script src="js/jasny-bs.min.js"></script>
-    <script src="./app.js"></script>
+    <div id="lex">
+  <input
+    v-model="newQuestionText"
+    v-on:keyup.enter="addNewQuestion"
+    placeholder="Ask the presenter a question"
+  >
+  <ul>
+    <li
+      is="question-item"
+      v-for="(question, index) in questions"
+      v-bind:key="question.id"
+      v-bind:author="question.author"
+      v-bind:qtext="question.text"
+      v-on:remove="question.splice(index, 1)"
+    ></li>
+  </ul>
+</div>
+<script src="app.js"> </script>
 </body>
 
 </html>

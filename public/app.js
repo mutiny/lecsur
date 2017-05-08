@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 6);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -73,41 +73,36 @@
 "use strict";
 
 
-var _sockets = __webpack_require__(2);
+var _sockets = __webpack_require__(1);
 
-var $ = __webpack_require__(7);
-var lexform = Vue.component('lexform', {
-  template: '\n    <form @submit.prevent="ask" class="inline-form " id="q-form">\n      <div class="input-group input-group-lg ">\n        <input id="question" class="form-control" type="text" placeholder="Ask a question ">\n        <span class="input-group-btn">\n          <button type="submit" id="but-ask" class="btn btn-primary">Ask</button>\n        </span>\n      </div>\n    </form>',
-  props: ['qVal'],
+var $ = __webpack_require__(2);
+Vue.component('question-item', {
+  template: '\n    <li>\n      {{ author }} - {{ qtext }}\n      <button v-on:click="$emit(\'remove\')">X</button>\n    </li>\n  ',
+  props: ['author', 'qtext']
+});
+var lex = new Vue({
+  el: '#lex',
+  data: {
+    username: '', // TODO
+    newQuestionText: '',
+    questions: []
+  },
   methods: {
-    ask: function ask(question) {
-      _sockets.Socket.ask({ author: 'testauth', text: $('#question').val() });
-      $('#question').val('');
+    addNewQuestion: function addNewQuestion() {
+      _sockets.Socket.ask({ author: 'testAuthor', text: this.newQuestionText });
+      this.questions.push({ author: 'testAuthor', text: this.newQuestionText });
+      this.newQuestionText = '';
+    },
+    updateQuestions: function updateQuestions(newQuestions) {
+      this.questions = newQuestions;
     }
   }
 });
-var lex = new Vue({
-  el: 'lex',
-  template: '<lexform></lexform>',
-  data: {
-    questions: []
-  },
 
-  methods: {
-    update: function update(newQuestions) {
-      console.log('new questions!');
-      this.questions = newQuestions;
-    }
-  },
-  components: { 'lexform': lexform }
-
-});
-
-_sockets.Socket.initSocket(lex.update);
+_sockets.Socket.initSocket(lex.updateQuestions);
 
 /***/ }),
-/* 1 */,
-/* 2 */
+/* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -128,17 +123,7 @@ var Socket = exports.Socket = {
 };
 
 /***/ }),
-/* 3 */,
-/* 4 */,
-/* 5 */,
-/* 6 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(0);
-
-
-/***/ }),
-/* 7 */
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -8074,6 +8059,13 @@ if ( !noGlobal ) {
 
 return jQuery;
 } ) );
+
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(0);
 
 
 /***/ })
